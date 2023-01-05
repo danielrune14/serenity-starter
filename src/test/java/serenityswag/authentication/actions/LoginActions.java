@@ -13,5 +13,6 @@ public class LoginActions extends UIInteractionSteps {
         $("css:input[data-test='username']").sendKeys(user.getUsername());
         $("css:input[data-test='password']").sendKeys(user.getPassword());
         $("css:input[data-test='login-button']").click();
+        
     }
 }
