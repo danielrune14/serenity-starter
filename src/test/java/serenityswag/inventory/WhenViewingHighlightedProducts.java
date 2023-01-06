@@ -6,6 +6,8 @@ import net.thucydides.core.annotations.Steps;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import serenityswag.authentication.actions.LoginActions;
+import serenityswag.inventory.pageObjects.ProductDetailsPageObject;
+import serenityswag.inventory.pageObjects.ProductListPageObject;
 
 import java.util.List;
 
@@ -39,8 +41,10 @@ public class WhenViewingHighlightedProducts {
         String firstItemName = productList.getTitles().get(0);
         productList.openProductDetailsFor(firstItemName);
 
-        Serenity.reportThat("product Details Page should have the correct title",
+        Serenity.reportThat("The product Name is correct",
                 () -> assertThat(productDetails.productName()).isEqualTo(firstItemName));
+
+        productDetails.productImageWithAltValueOf(firstItemName).shouldBeVisible();
 
     }
 }

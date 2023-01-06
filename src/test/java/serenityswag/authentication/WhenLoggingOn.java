@@ -6,7 +6,7 @@ import net.thucydides.core.annotations.Steps;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import serenityswag.authentication.actions.LoginActions;
-import serenityswag.inventory.InventoryPage;
+import serenityswag.inventory.pageObjects.InventoryPage;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static serenityswag.authentication.User.STANDARD_USER;
