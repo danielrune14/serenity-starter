@@ -19,6 +19,7 @@ public class WhenViewingHighlightedProducts {
     LoginActions login;
 
     ProductListPageObject productList;
+    ProductDetailsPageObject productDetails;
 
     @Test
     public void shouldDisplayHighlightedProductsOnTheWelcomePage(){
@@ -29,5 +30,17 @@ public class WhenViewingHighlightedProducts {
                 () -> assertThat(productsOnDisplay).hasSize(6));
         Serenity.reportThat("Product List should contain Sauce Labs Backpack",
                 () -> assertThat(productsOnDisplay).contains("Sauce Labs Backpack"));
+    }
+
+    @Test
+    public void shouldDisplayCorrectProductDetailsPage(){
+        login.as(STANDARD_USER);
+
+        String firstItemName = productList.getTitles().get(0);
+        productList.openProductDetailsFor(firstItemName);
+
+        Serenity.reportThat("product Details Page should have the correct title",
+                () -> assertThat(productDetails.productName()).isEqualTo(firstItemName));
+
     }
 }
