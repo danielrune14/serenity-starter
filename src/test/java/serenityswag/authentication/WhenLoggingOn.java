@@ -5,8 +5,7 @@ import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import net.thucydides.core.annotations.Steps;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import serenityswag.authentication.actions.LoginActions;
-import serenityswag.inventory.pageObjects.InventoryPage;
+import serenityswag.inventory.pageObjects.InventoryPageObject;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static serenityswag.authentication.User.STANDARD_USER;
@@ -17,7 +16,7 @@ public class WhenLoggingOn {
     @Steps
     LoginActions login;
 
-    InventoryPage inventoryPage;
+    InventoryPageObject inventoryPage;
 
     @Test
     public void loginViaHomePage() {

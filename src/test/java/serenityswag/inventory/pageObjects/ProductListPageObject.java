@@ -7,11 +7,16 @@ import java.util.List;
 
 public class ProductListPageObject extends PageObject {
 
-    public List<String> getTitles() {
+    public List<String> titles() {
         return findAll(".inventory_item_name").textContents();
     }
 
-    public void openProductDetailsFor(String ItemName) {
-        find(By.linkText(ItemName)).click();
+    public String imageTextForProduct(String productName) {
+        return $("//div[@class='inventory_item'][contains(.,'" + productName + "')]//img").getAttribute("alt");
     }
+
+    public static By productDetailsLinkFor(String itemName) {
+        return By.linkText(itemName);
+    }
+
 }

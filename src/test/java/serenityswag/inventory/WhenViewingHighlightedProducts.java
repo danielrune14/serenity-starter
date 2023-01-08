@@ -3,9 +3,10 @@ package serenityswag.inventory;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import net.thucydides.core.annotations.Steps;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import serenityswag.authentication.actions.LoginActions;
+import serenityswag.authentication.LoginActions;
 import serenityswag.inventory.pageObjects.ProductDetailsPageObject;
 import serenityswag.inventory.pageObjects.ProductListPageObject;
 
@@ -20,6 +21,9 @@ public class WhenViewingHighlightedProducts {
     @Steps
     LoginActions login;
 
+    @Steps
+    ViewProductDetailsActions viewProductDetails;
+
     ProductListPageObject productList;
     ProductDetailsPageObject productDetails;
 
@@ -27,7 +31,7 @@ public class WhenViewingHighlightedProducts {
     public void shouldDisplayHighlightedProductsOnTheWelcomePage(){
         login.as(STANDARD_USER);
 
-        List<String> productsOnDisplay = productList.getTitles();
+        List<String> productsOnDisplay = productList.titles();
         Serenity.reportThat("Product List should contain 6 items",
                 () -> assertThat(productsOnDisplay).hasSize(6));
         Serenity.reportThat("Product List should contain Sauce Labs Backpack",
@@ -35,16 +39,30 @@ public class WhenViewingHighlightedProducts {
     }
 
     @Test
+    public void highlightedProductsShouldDisplayTheCorrespondingImages(){
+        login.as(STANDARD_USER);
+
+        List<String> productsOnDisplay = productList.titles();
+
+        SoftAssertions softly = new SoftAssertions();
+        productsOnDisplay.forEach(
+                productName -> softly.assertThat(productList.imageTextForProduct(productName)).isEqualTo(productName)
+        );
+        softly.assertAll();
+    }
+
+    @Test
     public void shouldDisplayCorrectProductDetailsPage(){
         login.as(STANDARD_USER);
 
-        String firstItemName = productList.getTitles().get(0);
-        productList.openProductDetailsFor(firstItemName);
+        String firstItemName = productList.titles().get(0);
+        viewProductDetails.ForProductWithName(firstItemName);
 
-        Serenity.reportThat("The product Name is correct",
+        Serenity.reportThat("The product name should be correctly displayed",
                 () -> assertThat(productDetails.productName()).isEqualTo(firstItemName));
 
-        productDetails.productImageWithAltValueOf(firstItemName).shouldBeVisible();
+        Serenity.reportThat("The product image should have the correct 'alt' value",
+                () -> productDetails.productImageWithAltValueOf(firstItemName).shouldBeVisible());
 
     }
 }
