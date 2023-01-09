@@ -7,4 +7,5 @@ public class InventoryPageObject extends PageObject {
     public String getHeading() {
         return $(".title").getText();
     }
+
 }

@@ -3,6 +3,7 @@ package serenityswag.authentication;
 import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import net.thucydides.core.annotations.Steps;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import serenityswag.inventory.pageObjects.InventoryPageObject;
@@ -16,13 +17,15 @@ public class WhenLoggingOn {
     @Steps
     LoginActions login;
 
+    @BeforeEach
+    public void login(){
+        login.as(STANDARD_USER);
+    }
+
     InventoryPageObject inventoryPage;
 
     @Test
     public void loginViaHomePage() {
-
-        login.as(STANDARD_USER);
-
         Serenity.reportThat("The inventory should be displayed with the correct title",
                 () -> assertThat(inventoryPage.getHeading()).isEqualTo("PRODUCTS")
         );

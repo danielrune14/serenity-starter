@@ -4,6 +4,7 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import net.thucydides.core.annotations.Steps;
 import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import serenityswag.authentication.LoginActions;
@@ -24,13 +25,16 @@ public class WhenViewingHighlightedProducts {
     @Steps
     ViewProductDetailsActions viewProductDetails;
 
+    @BeforeEach
+    public void login(){
+        login.as(STANDARD_USER);
+    }
+
     ProductListPageObject productList;
     ProductDetailsPageObject productDetails;
 
     @Test
     public void shouldDisplayHighlightedProductsOnTheWelcomePage(){
-        login.as(STANDARD_USER);
-
         List<String> productsOnDisplay = productList.titles();
         Serenity.reportThat("Product List should contain 6 items",
                 () -> assertThat(productsOnDisplay).hasSize(6));
@@ -40,8 +44,6 @@ public class WhenViewingHighlightedProducts {
 
     @Test
     public void highlightedProductsShouldDisplayTheCorrespondingImages(){
-        login.as(STANDARD_USER);
-
         List<String> productsOnDisplay = productList.titles();
 
         SoftAssertions softly = new SoftAssertions();
@@ -53,8 +55,6 @@ public class WhenViewingHighlightedProducts {
 
     @Test
     public void shouldDisplayCorrectProductDetailsPage(){
-        login.as(STANDARD_USER);
-
         String firstItemName = productList.titles().get(0);
         viewProductDetails.ForProductWithName(firstItemName);
 

@@ -19,4 +19,7 @@ public class ProductListPageObject extends PageObject {
         return By.linkText(itemName);
     }
 
+    public static By addToCartBtnFor(String itemName) {
+        return By.xpath("//div[@class='inventory_item'][contains(.,'" + itemName + "')]//button");
+    }
 }
