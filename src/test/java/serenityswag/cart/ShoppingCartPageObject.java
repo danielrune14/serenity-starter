@@ -24,6 +24,10 @@ public class ShoppingCartPageObject extends PageObject {
     }
 
     public List<CartItem> items() {
+        //inRadioButtonGroup("btn_secondary").selectByValue("Male");
+        //$(".checkbox").isSelected();
+
+
         return findAll(CART_ITEMS).map(
                 item -> new CartItem(
                         item.findBy(".inventory_item_name").getText(),
