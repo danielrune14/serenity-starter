@@ -16,12 +16,16 @@ public enum User {
         this.description = description;
     }
 
-    public String getUsername(){
+    public String username(){
         return username;
     }
 
-    public String getPassword(){
+    public String password(){
         return password;
+    }
+
+    public String description(){
+        return description;
     }
 
     @Override

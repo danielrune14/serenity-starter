@@ -20,6 +20,10 @@ public class WhenLoggingOn {
     @BeforeEach
     public void login(){
         login.as(STANDARD_USER);
+        Serenity.recordReportData().withTitle("Login Credentials")
+                .andContents("User: " + STANDARD_USER.username() +
+                        "\nPassword: " + STANDARD_USER.password() +
+                        "\nDescription: " + STANDARD_USER.description());
     }
 
     InventoryPageObject inventoryPage;

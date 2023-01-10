@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import serenityswag.authentication.LoginActions;
 import serenityswag.cart.CartActions;
-import serenityswag.cart.CartItem;
 import serenityswag.cart.ShoppingCartPageObject;
 
 import java.util.List;
@@ -61,9 +60,10 @@ public class WhenAddingAnItemToTheCart {
 
         cartPage.open();
 
-        List<CartItem> items = cartPage.items();
-        assertThat(items).hasSize(3)
+        assertThat(cartPage.items()).hasSize(3)
                 .allMatch(item -> item.getItemPrice() > 0.0);
+
+
     }
 
     //inRadioButton
